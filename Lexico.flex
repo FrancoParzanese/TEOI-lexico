@@ -35,6 +35,8 @@ COR_ABRE= [
 COR_CIE= ]
 PAR_ABRE= (
 PAR_CIE= )
+LLAV_ABRE= {
+LLAV_CIE= }
 DOSPUN_IG= :=
 COMA= ,
 PUNTO= .
@@ -102,6 +104,10 @@ PROGRAMA = BEGIN.PROGRAM({WHILE}|{DECISIONES}|{SALIDA}|{COMENTARIOS}|{ASIGNACION
 {,}		{System.out.println("Token COMA encontrado, Lexema "+ yytext());}
 
 {.}		{System.out.println("Token PUNTO encontrado, Lexema "+ yytext());}
+
+{{}		{System.out.println("Token LLAV_ABRE encontrado, Lexema "+ yytext());}
+
+{}}		{System.out.println("Token LLAV_CIE encontrado, Lexema "+ yytext());}
 }
 
 [^]		{ throw new Error("Caracter no permitido: <" + yytext() + "> en la linea " + yyline); }
