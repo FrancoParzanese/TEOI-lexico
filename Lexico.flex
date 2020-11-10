@@ -64,6 +64,8 @@ DOSPUNTOS= :
 
 {LET}		{System.out.println("Token LET encontrado, Lexema "+ yytext());}
 
+{DEFAULT}		{System.out.println("Token DEFAULT encontrado, Lexema "+ yytext());}
+
 {CONST_INT}		{System.out.println("Token CONST_INT, encontrado Lexema "+ yytext());}
 
 {CONST_STRING}		{System.out.println("Token CONST_STRING encontrado, Lexema "+ yytext());}
