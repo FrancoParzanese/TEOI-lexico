@@ -36,6 +36,7 @@ COR_CIE= ]
 PAR_ABRE= (
 PAR_CIE= )
 DOSPUN_IG= :=
+COMA= ,
 
  /* Creo que esto todavia no va
 EXPRESION = {VAR_NUMERIC}{SIGNOS}{VAR_NUMERIC}
@@ -96,6 +97,8 @@ PROGRAMA = BEGIN.PROGRAM({WHILE}|{DECISIONES}|{SALIDA}|{COMENTARIOS}|{ASIGNACION
 {)}		{System.out.println("Token PAR_CIE encontrado, Lexema "+ yytext());}
 
 {:=}		{System.out.println("Token DOSPUN_IG encontrado, Lexema "+ yytext());}
+
+{,}		{System.out.println("Token COMA encontrado, Lexema "+ yytext());}
 }
 
 [^]		{ throw new Error("Caracter no permitido: <" + yytext() + "> en la linea " + yyline); }
