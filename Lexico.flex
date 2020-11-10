@@ -40,6 +40,7 @@ LLAV_CIE= }
 DOSPUN_IG= :=
 COMA= ,
 PUNTO= .
+DOSPUNTOS= :
 
 %%
 
@@ -104,6 +105,8 @@ PUNTO= .
 {,}		{System.out.println("Token COMA encontrado, Lexema "+ yytext());}
 
 {.}		{System.out.println("Token PUNTO encontrado, Lexema "+ yytext());}
+
+{:}		{System.out.println("Token DOSPUNTOS encontrado, Lexema "+ yytext());}
 
 {{}		{System.out.println("Token LLAV_ABRE encontrado, Lexema "+ yytext());}
 
