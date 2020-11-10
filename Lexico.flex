@@ -61,6 +61,8 @@ PUNTO= .
 
 {ELSE}		{System.out.println("Token ELSE encontrado, Lexema "+ yytext());}
 
+{LET}		{System.out.println("Token LET encontrado, Lexema "+ yytext());}
+
 {CONST_INT}		{System.out.println("Token CONST_INT, encontrado Lexema "+ yytext());}
 
 {CONST_STRING}		{System.out.println("Token CONST_STRING encontrado, Lexema "+ yytext());}
