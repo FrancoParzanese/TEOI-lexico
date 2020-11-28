@@ -1,0 +1,22 @@
+NOMBRE		TOKEN			TIPO		VALOR									LONG
+------------------------------------------------------------------------------------
+suma		ID				FLOAT		  -										 -
+contador	ID				INT			  -										 -
+d1			ID				FLOAT		  -										 -
+actual		ID				FLOAT		  -										 -
+contar		ID				FLOAT		  -										 -
+palabra		ID				STRING		  -										 -
+var			ID				INT			  -										 -
+_print1		CONST_STRING	 -			Prueba.txt Analizador Lexico!			 29
+_0			CONST_INT		 -			0										 -
+_7.5		CONST_FLOAT		 -			7.5										 -
+_18.22		CONST_FLOAT		 -			18.22									 -
+_92			CONST_INT		 -			92										 -
+_1			CONST_INT		 -			1										 -
+_0.342		CONST_FLOAT		 -			0.342									 -
+_4.67		CONST_FLOAT		 -			4.67									 -
+_print2		CONST_STRING	 -			La variable suma es de tipo float		 33
+_5			CONST_INT		 -			5										 -
+_2			CONST_INT		 -			2										 -
+_2.5		CONST_FLOAT		 -			2.5										 -
+_7			CONST_INT		 -			7										 -
