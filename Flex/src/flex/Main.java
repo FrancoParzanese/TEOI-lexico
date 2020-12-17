@@ -114,7 +114,7 @@ public class Main {
 					String data = "";
 					String line;
 					while ((line = br.readLine()) != null) {
-						data += new String(line.getBytes(), "UTF-8");
+						data += new String(line.getBytes(), "UTF-8") + System.lineSeparator();
 					}
 					// Volcamos en el JTextArea el contenido del archivo.
 					programInput.setText(data);
