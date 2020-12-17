@@ -22,7 +22,7 @@ action code
 
 /*Declaracion de Terminales */
 terminal ID, INT, FLOAT, STRING, CONST_STRING, CONST_INT, CONST_FLOAT, IGUAL, OP_MAY, OP_IGUAL, OP_MEN, OP_MENIG, OP_MAYIG, OP_DIS, OP_SUMA, OP_RES, OP_MUL, OP_DIV, AND, OR, COR_ABRE, COR_CIE,
-PAR_ABRE, PAR_CIE, LLAV_ABRE, LLAV_CIE, DOSPUN_IG, COMA, DOSPUNTOS, DECLARE, ENDECLARE, BEGINPROGRAM, ENDPROGRAM, MIENTRAS, IF, ELSE, PRINT, LET, DEFAULT, DEFINE, ENDDEFINE;
+PAR_ABRE, PAR_CIE, LLAV_ABRE, LLAV_CIE, DOSPUN_IG, COMA, DOSPUNTOS, DECLARE, ENDDECLARE, BEGINPROGRAM, ENDPROGRAM, MIENTRAS, IF, ELSE, PRINT, LET, DEFAULT;
 
 
 /*Declaracion de No Terminales*/
@@ -34,7 +34,7 @@ start with prog;
 
 prog ::= declaracion programa {: System.out.println("prog Regla 0 Compila correctamente llegando al simbolo start");:};
 
-declaracion ::= DEFINE declaraciones ENDDEFINE {:System.out.println("Regla 1 --> Declaración"); :};
+declaracion ::= DECLARE declaraciones ENDDECLARE {:System.out.println("Regla 1 --> Declaración"); :};
 
 declaraciones ::= linea_declaracion {:System.out.println("Regla 2 --> Linea de declaración"); :}
 		 | declaraciones linea_declaracion {:System.out.println("Regla 3 --> Declaraciones"); :};
@@ -79,7 +79,8 @@ mientras ::= MIENTRAS exp_logica LLAV_ABRE bloque_sentencias LLAV_CIE {:System.o
 
 exp_logica ::= condicion {:System.out.println("Regla 31 --> Condición"); :}
 	| condicion AND condicion {:System.out.println("Regla 32 --> Condición and condición"); :}
-	| condicion OR condicion {:System.out.println("Regla 33 --> Condición or condición"); :};
+	| condicion OR condicion {:System.out.println("Regla 33 --> Condición or condición"); :}
+	| PAR_ABRE exp_logica PAR_CIE {:System.out.println("Regla 33.1 --> ( Expresión lógica )"); :};
 
 condicion ::= expresion op expresion {:System.out.println("Regla 34 --> E operador E"); :};
 

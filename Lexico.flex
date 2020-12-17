@@ -6,7 +6,6 @@ import java_cup.runtime.Symbol;
 %%
 
 
-%cupsym Simbolo
 %cup
 %public
 %class Lexico
@@ -16,14 +15,18 @@ import java_cup.runtime.Symbol;
 
 LETRA = [a-zA-Z]
 DIGITO = [0-9]
-ESPACIO = \t|\f
+ESPACIO = \ |\t|\f
+FIN_LINEA = \r|\n|\r\n
 COM = \"
+PUNTO = \.
+COMA = \,
+COM_ABRE = \<\/
+COM_CIE = \/\>
 ID = {LETRA}({LETRA}|{DIGITO}|_)*
 CONST_INT = {DIGITO}+
-CONST_STRING = {COM}({LETRA}|{DIGITO}|{ESPACIO})*{COM}
-CONST_FLOAT = {DIGITO}+.{DIGITO}*|.{DIGITO}+
-COMENTARIO = \<\/({LETRA}|{DIGITO}|{ESPACIO}|,|\.)\/\>
-FIN_LINEA = \r|\n|\r\n
+CONST_STRING = {COM}({LETRA}|{DIGITO}|{ESPACIO}|{PUNTO})*{COM}
+CONST_FLOAT = {DIGITO}+{PUNTO}{DIGITO}*|{PUNTO}{DIGITO}+
+COMENTARIO = {COM_ABRE}{CUALQUIER_COSA}*{COM_CIE}
 
 
 %%
@@ -56,7 +59,7 @@ FIN_LINEA = \r|\n|\r\n
 "BEGIN.PROGRAM"		{return new Symbol(sym.BEGINPROGRAM, yytext());}
 "END.PROGRAM"		{return new Symbol(sym.ENDPROGRAM, yytext());}
 "DECLARE"			{return new Symbol(sym.DECLARE, yytext());}
-"ENDDECLARE"		{return new Symbol(sym.ENDECLARE, yytext());}
+"ENDDECLARE"		{return new Symbol(sym.ENDDECLARE, yytext());}
 "while"				{return new Symbol(sym.MIENTRAS, yytext());}
 "if"				{return new Symbol(sym.IF, yytext());}
 "else"				{return new Symbol(sym.ELSE, yytext());}
@@ -66,13 +69,13 @@ FIN_LINEA = \r|\n|\r\n
 "FLOAT"				{return new Symbol(sym.FLOAT, yytext());}
 "INT"				{return new Symbol(sym.INT, yytext());}
 "STRING"			{return new Symbol(sym.STRING, yytext());}
+{ESPACIO}			{}
+{COMENTARIO}		{}
+{FIN_LINEA}			{}
 {ID}				{return new Symbol(sym.ID, yytext());}
 {CONST_INT}			{return new Symbol(sym.CONST_INT, yytext());}
 {CONST_STRING}		{return new Symbol(sym.CONST_STRING, yytext());}
 {CONST_FLOAT}		{return new Symbol(sym.CONST_FLOAT, yytext());}
-{ESPACIO}			{}
-{COMENTARIO}		{}
-{FIN_LINEA}			{}
 
 }
 
