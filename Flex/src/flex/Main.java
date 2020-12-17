@@ -134,7 +134,7 @@ public class Main {
 		compileBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// Si no se ingresó código, no hacemos nada.
-				if (programInput.getText().isBlank()) return;
+				if (programInput.getText().isEmpty()) return;
 				// Limpiamos la consola.
 				programOutput.setText("");
 				try {
