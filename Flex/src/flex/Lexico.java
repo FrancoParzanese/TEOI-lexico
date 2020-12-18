@@ -201,7 +201,7 @@ public class Lexico implements java_cup.runtime.Scanner {
     "\1\67\5\23\17\0\1\23\4\0\22\23\2\0\4\23"+
     "\1\70\10\23\17\0\1\23\4\0\22\23\2\0\12\23"+
     "\1\71\2\23\17\0\1\23\4\0\22\23\2\0\5\23"+
-    "\1\72\7\23\3\0\3\51\5\0\1\51\1\0\1\51"+
+    "\1\72\7\23\3\0\4\51\4\0\1\51\1\0\1\51"+
     "\1\73\1\51\4\0\22\51\3\0\14\51\17\0\1\23"+
     "\4\0\6\23\1\74\13\23\2\0\15\23\17\0\1\23"+
     "\4\0\2\23\1\75\2\23\1\76\14\23\2\0\15\23"+
@@ -880,7 +880,10 @@ public class Lexico implements java_cup.runtime.Scanner {
             // fall through
           case 60: break;
           case 20:
-            { return new Symbol(sym.CONST_STRING, yytext());
+            { if (yytext().length() <= 32) {
+						return new Symbol(sym.CONST_STRING, yytext());
+					} else {
+						throw new Error("La constante string <" + yytext() + "> en la línea " + yyline + " supera el límite de 30 caracteres: tiene " + (yytext().length() - 2));}
             }
             // fall through
           case 61: break;

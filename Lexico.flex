@@ -26,7 +26,7 @@ ID = {LETRA}({LETRA}|{DIGITO}|_)*
 CONST_INT = {DIGITO}+
 CONST_STRING = {COM}({LETRA}|{DIGITO}|{ESPACIO}|{PUNTO})*{COM}
 CONST_FLOAT = {DIGITO}+{PUNTO}{DIGITO}*|{PUNTO}{DIGITO}+
-COMENTARIO = {COM_ABRE}{CUALQUIER_COSA}*{COM_CIE}
+COMENTARIO = {COM_ABRE}({LETRA}|{DIGITO}|{ESPACIO}|{FIN_LINEA}|{COM}|{PUNTO}|{COMA})*{COM_CIE}
 
 
 %%
@@ -74,7 +74,10 @@ COMENTARIO = {COM_ABRE}{CUALQUIER_COSA}*{COM_CIE}
 {FIN_LINEA}			{}
 {ID}				{return new Symbol(sym.ID, yytext());}
 {CONST_INT}			{return new Symbol(sym.CONST_INT, yytext());}
-{CONST_STRING}		{return new Symbol(sym.CONST_STRING, yytext());}
+{CONST_STRING}		{if (yytext().length() <= 32) {
+						return new Symbol(sym.CONST_STRING, yytext());
+					} else {
+						throw new Error("La constante string <" + yytext() + "> en la línea " + yyline + " supera el límite de 30 caracteres: tiene " + (yytext().length() - 2));}}
 {CONST_FLOAT}		{return new Symbol(sym.CONST_FLOAT, yytext());}
 
 }
