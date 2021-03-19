@@ -103,10 +103,10 @@ public class Main {
 				// Abre selector de archivos.
 				JFileChooser jfc = new JFileChooser();
 				jfc.showOpenDialog(null);
-				// Espera selección de archivo.
+				// Espera selecciÃ³n de archivo.
 				// La siguiente llamada retorna 'null' si se cierra la ventana.
 				File file = jfc.getSelectedFile();
-				// Si se cerró la ventana, no hacemos nada.
+				// Si se cerrÃ³ la ventana, no hacemos nada.
 				if (file == null) return;
 				try {
 					// Leemos el archivo.
@@ -119,9 +119,9 @@ public class Main {
 					// Volcamos en el JTextArea el contenido del archivo.
 					programInput.setText(data);
 				} catch (FileNotFoundException e) {
-					System.out.println("No se encontró el archivo fuente.");
+					System.out.println("No se encontrÃ³ el archivo fuente.");
 				} catch (UnsupportedEncodingException e) {
-					System.out.println("No se pudo leer el archivo. Codificación no soportada.");
+					System.out.println("No se pudo leer el archivo. CodificaciÃ³n no soportada.");
 				} catch (IOException e) {
 					System.out.println("No se pudo leer el archivo.");
 				}
@@ -133,18 +133,18 @@ public class Main {
 		JMenuItem compileBtn = new JMenuItem("Compilar");
 		compileBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				// Si no se ingresó código, no hacemos nada.
+				// Si no se ingresÃ³ cÃ³digo, no hacemos nada.
 				if (programInput.getText().isEmpty()) return;
 				// Limpiamos la consola.
 				programOutput.setText("");
 				try {
-					// Instanciamos un lector de string con el código ingresado.
+					// Instanciamos un lector de string con el cÃ³digo ingresado.
 					StringReader sr = new StringReader(programInput.getText());
 					Lexico Lexer = new Lexico(sr);
 					parser sintactico = new parser(Lexer);
 					sintactico.parse();
 				} catch (FileNotFoundException e) {
-					System.out.println("No se encontró el archivo fuente.");
+					System.out.println("No se encontrÃ³ el archivo fuente.");
 				} catch (Exception e) {
 					System.out.println("Error al parsear el programa.");
 				}
