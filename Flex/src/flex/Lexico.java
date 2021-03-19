@@ -785,7 +785,7 @@ public class Lexico implements java_cup.runtime.Scanner {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1:
-            { throw new Error("Caracter no permitido: <" + yytext() + "> en la línea " + yyline);
+            { throw new Error("Caracter no permitido: <" + yytext() + "> en la lÃ­nea " + yyline);
             }
             // fall through
           case 42: break;
@@ -830,7 +830,9 @@ public class Lexico implements java_cup.runtime.Scanner {
             // fall through
           case 50: break;
           case 10:
-            { return new Symbol(sym.CONST_INT, yytext());
+            { TS ts = TS.getInstance();
+						ts.addSymbol("_" + yytext(), "CONST_INT", "-", yytext(), "-");
+						return new Symbol(sym.CONST_INT, yytext());
             }
             // fall through
           case 51: break;
@@ -855,7 +857,9 @@ public class Lexico implements java_cup.runtime.Scanner {
             // fall through
           case 55: break;
           case 15:
-            { return new Symbol(sym.ID, yytext());
+            { TS ts = TS.getInstance();
+						ts.addSymbol(yytext(), "ID", "?", "-", "-");
+						return new Symbol(sym.ID, yytext());
             }
             // fall through
           case 56: break;
@@ -881,14 +885,19 @@ public class Lexico implements java_cup.runtime.Scanner {
           case 60: break;
           case 20:
             { if (yytext().length() <= 32) {
-						return new Symbol(sym.CONST_STRING, yytext());
-					} else {
-						throw new Error("La constante string <" + yytext() + "> en la línea " + yyline + " supera el límite de 30 caracteres: tiene " + (yytext().length() - 2));}
+							TS ts = TS.getInstance();
+							ts.addSymbol("_" + yytext(), "CONST_STRING", "-", yytext(), Integer.toString(yytext().length()));
+							return new Symbol(sym.CONST_STRING, yytext());
+						} else {
+							throw new Error("La constante string <" + yytext() + "> en la lÃ­nea " + yyline + " supera el lÃ­mite de 30 caracteres: tiene " + (yytext().length() - 2));
+						}
             }
             // fall through
           case 61: break;
           case 21:
-            { return new Symbol(sym.CONST_FLOAT, yytext());
+            { TS ts = TS.getInstance();
+						ts.addSymbol("_" + yytext(), "CONST_FLOAT", "-", yytext(), "-");
+						return new Symbol(sym.CONST_FLOAT, yytext());
             }
             // fall through
           case 62: break;

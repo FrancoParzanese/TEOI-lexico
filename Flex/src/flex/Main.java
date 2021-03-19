@@ -29,6 +29,8 @@ public class Main {
 
 	private JFrame frmTeoilexico;
 
+	private SymbolsTable st;
+
 	/**
 	 * Launch the application.
 	 */
@@ -49,6 +51,7 @@ public class Main {
 	 * Create the application.
 	 */
 	public Main() {
+		st = new SymbolsTable();
 		initialize();
 	}
 
@@ -135,8 +138,9 @@ public class Main {
 			public void actionPerformed(ActionEvent arg0) {
 				// Si no se ingresó código, no hacemos nada.
 				if (programInput.getText().isEmpty()) return;
-				// Limpiamos la consola.
+				// Limpiamos la consola y la tabla de símbolos.
 				programOutput.setText("");
+				TS.getInstance().clearData();
 				try {
 					// Instanciamos un lector de string con el código ingresado.
 					StringReader sr = new StringReader(programInput.getText());
@@ -162,5 +166,21 @@ public class Main {
 		});
 		exitBtn.setBackground(Color.WHITE);
 		mnNewMenu.add(exitBtn);
+		
+		JMenu mnVer = new JMenu("Ver");
+		mnVer.setBackground(Color.WHITE);
+		menuBar.add(mnVer);
+		
+		JMenuItem viewTSBtn = new JMenuItem("Tabla de símbolos");
+		viewTSBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (!st.isShowing()) {
+					st = new SymbolsTable();
+				}
+				st.showTable();
+			}
+		});
+		viewTSBtn.setBackground(Color.WHITE);
+		mnVer.add(viewTSBtn);
 	}
 }

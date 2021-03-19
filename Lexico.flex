@@ -72,15 +72,32 @@ COMENTARIO = {COM_ABRE}({LETRA}|{DIGITO}|{ESPACIO}|{FIN_LINEA}|{COM}|{PUNTO}|{CO
 {ESPACIO}			{}
 {COMENTARIO}		{}
 {FIN_LINEA}			{}
-{ID}				{return new Symbol(sym.ID, yytext());}
-{CONST_INT}			{return new Symbol(sym.CONST_INT, yytext());}
-{CONST_STRING}		{if (yytext().length() <= 32) {
-						return new Symbol(sym.CONST_STRING, yytext());
-					} else {
-						throw new Error("La constante string <" + yytext() + "> en la línea " + yyline + " supera el límite de 30 caracteres: tiene " + (yytext().length() - 2));}}
-{CONST_FLOAT}		{return new Symbol(sym.CONST_FLOAT, yytext());}
+{ID}				{
+						TS ts = TS.getInstance();
+						ts.addSymbol(yytext(), "ID", "?", "-", "-");
+						return new Symbol(sym.ID, yytext());
+					}
+{CONST_INT}			{
+						TS ts = TS.getInstance();
+						ts.addSymbol("_" + yytext(), "CONST_INT", "-", yytext(), "-");
+						return new Symbol(sym.CONST_INT, yytext());
+					}
+{CONST_STRING}		{
+						if (yytext().length() <= 32) {
+							TS ts = TS.getInstance();
+							ts.addSymbol("_" + yytext(), "CONST_STRING", "-", yytext(), Integer.toString(yytext().length()));
+							return new Symbol(sym.CONST_STRING, yytext());
+						} else {
+							throw new Error("La constante string <" + yytext() + "> en la lÃ­nea " + yyline + " supera el lÃ­mite de 30 caracteres: tiene " + (yytext().length() - 2));
+						}
+					}
+{CONST_FLOAT}		{
+						TS ts = TS.getInstance();
+						ts.addSymbol("_" + yytext(), "CONST_FLOAT", "-", yytext(), "-");
+						return new Symbol(sym.CONST_FLOAT, yytext());
+					}
 
 }
 
-[^]					{throw new Error("Caracter no permitido: <" + yytext() + "> en la línea " + yyline);}
+[^]					{throw new Error("Caracter no permitido: <" + yytext() + "> en la lÃ­nea " + yyline);}
 <<EOF>>				{return new Symbol(sym.EOF);}
