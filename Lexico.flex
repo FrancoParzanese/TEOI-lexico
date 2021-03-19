@@ -74,7 +74,7 @@ COMENTARIO = {COM_ABRE}({LETRA}|{DIGITO}|{ESPACIO}|{FIN_LINEA}|{COM}|{PUNTO}|{CO
 {FIN_LINEA}			{}
 {ID}				{
 						TS ts = TS.getInstance();
-						ts.addSymbol(yytext(), "ID", "?", "-", "-");
+						ts.addSymbol(yytext(), "ID", "-", "-", "-");
 						return new Symbol(sym.ID, yytext());
 					}
 {CONST_INT}			{

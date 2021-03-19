@@ -858,7 +858,7 @@ public class Lexico implements java_cup.runtime.Scanner {
           case 55: break;
           case 15:
             { TS ts = TS.getInstance();
-						ts.addSymbol(yytext(), "ID", "?", "-", "-");
+						ts.addSymbol(yytext(), "ID", "-", "-", "-");
 						return new Symbol(sym.ID, yytext());
             }
             // fall through

@@ -34,15 +34,15 @@ start with prog;
 
 prog ::= declaracion programa {: System.out.println("prog Regla 0 Compila correctamente llegando al simbolo start");:};
 
-declaracion ::= DECLARE declaraciones ENDDECLARE {:System.out.println("Regla 1 --> Declaraci髇"); :};
+declaracion ::= DECLARE declaraciones ENDDECLARE {:System.out.println("Regla 1 --> Declaraci贸n"); :};
 
-declaraciones ::= linea_declaracion {:System.out.println("Regla 2 --> Linea de declaraci髇"); :}
+declaraciones ::= linea_declaracion {:System.out.println("Regla 2 --> Linea de declaraci贸n"); :}
 		 | declaraciones linea_declaracion {:System.out.println("Regla 3 --> Declaraciones"); :};
 
-linea_declaracion ::= COR_ABRE declaracion_var COR_CIE {:System.out.println("Regla 4 --> Declaraci髇 variables"); :};
+linea_declaracion ::= COR_ABRE declaracion_var COR_CIE {:System.out.println("Regla 4 --> Declaraci贸n variables"); :};
 
 declaracion_var::= ID COR_CIE DOSPUN_IG COR_ABRE tipo {:System.out.println("Regla 5 --> Id ] := [ tipo"); :}
-  | ID COMA declaracion_var COMA tipo {:System.out.println("Regla 6 --> Id declaraci髇 variables tipo"); :};
+  | ID COMA declaracion_var COMA tipo {:System.out.println("Regla 6 --> Id declaraci贸n variables tipo"); :};
 
 tipo ::= FLOAT {:System.out.println("Regla 7 --> Float"); :}
 	| INT {:System.out.println("Regla 8 --> Integer"); :}
@@ -53,18 +53,23 @@ programa ::= BEGINPROGRAM bloque_sentencias ENDPROGRAM {:System.out.println("Reg
 bloque_sentencias ::= sentencia {:System.out.println("Regla 11 --> Sentencia"); :} 
 		   | bloque_sentencias sentencia {:System.out.println("Regla 12 --> Bloque de sentencias"); :};
 
-sentencia ::= asignacion {:System.out.println("Regla 13 --> Asignaci髇"); :}
+sentencia ::= asignacion {:System.out.println("Regla 13 --> Asignaci贸n"); :}
 	| mientras {:System.out.println("Regla 14 --> Mientras"); :}
 	| decisiones {:System.out.println("Regla 15 --> Decisiones"); :} 
 	| salida {:System.out.println("Regla 16 --> Salida"); :}
 	| let {:System.out.println("Regla 17 --> Let"); :};
 
-asignacion ::= ID IGUAL expresion {:System.out.println("Regla 18 --> Id = Expresi髇"); :}
-	|ID IGUAL CONST_STRING {:System.out.println("Regla 19 --> Id = constante"); :};
+asignacion ::= ID :i IGUAL expresion {:
+	TS.getInstance().updateTypeSymbol(i, "NUMERIC");
+	System.out.println("Regla 18 --> Id = Expresi贸n");
+:} | ID :i IGUAL CONST_STRING {:
+	TS.getInstance().updateTypeSymbol(i, "STRING");
+	System.out.println("Regla 19 --> Id = constante");
+:};
 
 expresion ::= expresion OP_SUMA termino {:System.out.println("Regla 20 --> E+T"); :}
     	|expresion OP_RES termino {:System.out.println("Regla 21 --> E-T"); :}
-	|termino {:System.out.println("Regla 22 --> T閞mino"); :};
+	|termino {:System.out.println("Regla 22 --> T茅rmino"); :};
 
 termino ::= termino OP_MUL factor {:System.out.println("Regla 23 --> T*F"); :}
 	|termino OP_DIV factor {:System.out.println("Regla 24 --> T/F"); :}
@@ -73,14 +78,14 @@ termino ::= termino OP_MUL factor {:System.out.println("Regla 23 --> T*F"); :}
 factor ::= CONST_INT :ent {:System.out.println("Regla 26 --> Constante entera = " + ent); RESULT = ent; :}
 	| CONST_FLOAT {:System.out.println("Regla 27 --> Constante Float"); :} 
 	| ID :id {:System.out.println("Regla 28 --> Variable= " + id); RESULT = id; :}
-	|PAR_ABRE expresion PAR_CIE {:System.out.println("Regla 29 --> (Expresi髇)"); :};
+	|PAR_ABRE expresion PAR_CIE {:System.out.println("Regla 29 --> (Expresi贸n)"); :};
 
-mientras ::= MIENTRAS exp_logica LLAV_ABRE bloque_sentencias LLAV_CIE {:System.out.println("Regla 30 --> Mientras expresi髇 l骻ica {bloque}"); :};
+mientras ::= MIENTRAS exp_logica LLAV_ABRE bloque_sentencias LLAV_CIE {:System.out.println("Regla 30 --> Mientras expresi贸n l贸gica {bloque}"); :};
 
-exp_logica ::= condicion {:System.out.println("Regla 31 --> Condici髇"); :}
-	| condicion AND condicion {:System.out.println("Regla 32 --> Condici髇 and condici髇"); :}
-	| condicion OR condicion {:System.out.println("Regla 33 --> Condici髇 or condici髇"); :}
-	| PAR_ABRE exp_logica PAR_CIE {:System.out.println("Regla 33.1 --> ( Expresi髇 l骻ica )"); :};
+exp_logica ::= condicion {:System.out.println("Regla 31 --> Condici贸n"); :}
+	| condicion AND condicion {:System.out.println("Regla 32 --> Condici贸n and condici贸n"); :}
+	| condicion OR condicion {:System.out.println("Regla 33 --> Condici贸n or condici贸n"); :}
+	| PAR_ABRE exp_logica PAR_CIE {:System.out.println("Regla 33.1 --> ( Expresi贸n l贸gica )"); :};
 
 condicion ::= expresion op expresion {:System.out.println("Regla 34 --> E operador E"); :};
 
@@ -91,15 +96,15 @@ op::= OP_MAY {:System.out.println("Regla 35 --> Operador mayor"); :}
 	| OP_MAYIG {:System.out.println("Regla 39 --> Operador mayor igual"); :}
 	| OP_DIS {:System.out.println("Regla 40 --> Operador distinto"); :};
 
-decisiones ::= IF exp_logica LLAV_ABRE bloque_sentencias LLAV_CIE {:System.out.println("Regla 41 --> If expresi髇 l骻ica {bloque}"); :}
-	|IF exp_logica LLAV_ABRE bloque_sentencias LLAV_CIE ELSE LLAV_ABRE bloque_sentencias LLAV_CIE {:System.out.println("Regla 42 --> If expresi髇 l骻ica {bloque} else {bloque} "); :};
+decisiones ::= IF exp_logica LLAV_ABRE bloque_sentencias LLAV_CIE {:System.out.println("Regla 41 --> If expresi贸n l贸gica {bloque}"); :}
+	|IF exp_logica LLAV_ABRE bloque_sentencias LLAV_CIE ELSE LLAV_ABRE bloque_sentencias LLAV_CIE {:System.out.println("Regla 42 --> If expresi贸n l贸gica {bloque} else {bloque} "); :};
 
 salida::= PRINT CONST_STRING {:System.out.println("Regla 43 --> Print constante"); :};
 
 let ::= LET lista_let DEFAULT expresion {:System.out.println("Regla 44 --> Let lista let Default expresion"); :};
 
-lista_let::= termino_let {:System.out.println("Regla 45 --> T閞mino let"); :} 
-	| lista_let COMA termino_let {:System.out.println("Regla 46 --> Lista let, t閞mino let "); :};
+lista_let::= termino_let {:System.out.println("Regla 45 --> T茅rmino let"); :} 
+	| lista_let COMA termino_let {:System.out.println("Regla 46 --> Lista let, t茅rmino let "); :};
 
 termino_let ::= ID :id {:System.out.println("Regla 47 --> Variable= " + id); RESULT = id; :} 
-	| ID DOSPUNTOS expresion {:System.out.println("Regla 48 --> Id: expresi髇"); :};
+	| ID DOSPUNTOS expresion {:System.out.println("Regla 48 --> Id: expresi贸n"); :};

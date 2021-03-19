@@ -31,6 +31,15 @@ public final class TS {
 		data.clear();
 	}
 
+	public void updateTypeSymbol(Object nombre, String tipo) {
+		for (int i = 0; i < data.size(); i++) {
+			if (nombre.toString().equals(data.get(i).get(0))) {
+				data.get(i).set(2, tipo);
+				break;
+			}
+		}
+	}
+
 	public void addSymbol(Object nombre,
 						   Object token,
 						   Object tipo,
